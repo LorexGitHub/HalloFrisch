@@ -1,0 +1,108 @@
+default:
+  image: harbor.uni-muenster.de/proxy-docker/eclipse-temurin:21-jdk-alpine
+  tags:
+  - high job throughput
+  cache: &gradle_cache
+    key: "gradle-$CI_COMMIT_REF_SLUG"
+    fallback_keys:
+    - "gradle-$CI_DEFAULT_BRANCH"
+    unprotect: true
+    paths:
+    - .gradle/
+    - .gradlehome/
+    when: always
+    policy: pull-push
+
+variables:
+  GRADLE_USER_HOME: ${CI_PROJECT_DIR}/.gradlehome
+  GRADLE_OPTS: "-Dorg.gradle.caching=true -Dfile.encoding=utf-8"
+
+stages:
+- build
+- test
+- deploy
+
+compile:main:
+  stage: build
+  needs: []
+  script:
+  - ./gradlew classes
+
+compile:test:
+  stage: build
+  needs:
+  - job: compile:main
+    artifacts: false
+  script:
+  - ./gradlew testClasses
+
+javadoc:
+  stage: build
+  needs: []
+  cache:
+    <<: *gradle_cache
+    key: "gradle-javadoc-$CI_COMMIT_REF_SLUG"
+    fallback_keys:
+    - "gradle-javadoc-$CI_DEFAULT_BRANCH"
+  script:
+  - ./gradlew javadoc
+  artifacts:
+    paths:
+    - build/docs/javadoc/
+    when: always
+    expire_in: 1 week
+
+test:
+  stage: test
+  needs:
+  - job: compile:test
+    artifacts: false
+  script:
+  - ./gradlew test coverageTotal
+  coverage: '/^\d+.?\d*\% covered$/'
+  artifacts:
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+    paths:
+    - build/reports/
+    when: always
+    expire_in: 1 week
+
+dist:
+  stage: deploy
+  needs:
+  - job: test
+    artifacts: false
+  cache:
+    <<: *gradle_cache
+    policy: pull
+  when: manual
+  script:
+  - ./gradlew distTar
+  - mkdir ${CI_PROJECT_NAME}_dist
+  - tar -xf build/distributions/app.tar --directory=${CI_PROJECT_NAME}_dist --strip-components=1
+  artifacts:
+    name: ${CI_PROJECT_NAME}_dist
+    paths:
+    - ${CI_PROJECT_NAME}_dist/
+    expire_in: 1 week
+
+pages:
+  stage: deploy
+  needs:
+  - test
+  - javadoc
+  image: harbor.uni-muenster.de/proxy-docker/alpine:latest
+  cache: []
+  when: always
+  script:
+  - mkdir -p public
+  - cp -r build/reports/tests/test public/test
+  - cp -r build/reports/jacoco/test/html public/coverage
+  - cp -r build/docs/javadoc public/javadoc
+  artifacts:
+    paths:
+    - public
+    expire_in: 1 week
+  only:
+  - main

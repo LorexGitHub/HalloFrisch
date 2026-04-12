@@ -1,0 +1,101 @@
+* {
+    main-yellow : #FFCF50;
+    main-green-brighter: #A1C257;
+    main-green: #A4B465;
+    main-green-darker: #626F47;
+    main-black : #232323;
+}
+
+.root{
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.button{
+    -fx-font: 16px "Helvetica";
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-background-color: main-green;
+    -fx-border-radius: 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+}
+
+.button:hover{
+    -fx-background-color: main-green-darker;
+
+}
+
+.button:pressed{
+    -fx-background-color: main-green;
+}
+
+.text-field{
+    -fx-font: 12px "Helvetica";
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+    -fx-border-color: main-green;
+    -fx-border-radius: 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+}
+
+.menu .label{
+    -fx-text-fill: white;
+    -fx-font: 16px "Helvetica";
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button{
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+.clear-button{
+    -fx-background-color: transparent;
+}
+
+.round-button{
+    -fx-font: 16px "Helvetica";
+    -fx-font-weight: BOLD;
+    -fx-text-fill: white;
+    -fx-margin-left: 10;
+    -fx-padding: 8;
+    -fx-background-color: main-green;
+    -fx-border-radius: 18 18 18 18;
+    -fx-background-radius: 18 18 18 18;
+}
+
+.combo-box-style .list-view .list-cell{
+    -fx-text-fill: black;
+    -fx-font: 16px "Helvetica";
+    -fx-padding: 0;
+}
+
+.combo-box-style .list-cell{
+    -fx-text-fill: white;
+    -fx-font: 16px "Helvetica";
+    -fx-padding: 0;
+}
+
+.scroll-bar , .increment-button,  .decrement-button{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb, .increment-arrow, .decrement-arrow {
+    -fx-background-color: main-green;
+}
+
+.list-view > .item{
+    -fx-back-color: white;
+
+}
+
+.list-view > .label {
+    -fx-text-fill: black;
+}
