@@ -3,8 +3,9 @@
 4 week long (10.02.2025 - 07.03.2025) java software project at Uni Münster in Germany consisting of 10 people (Atilla Alaoglu, Frederik Flügge, Florian Gerdes, Leonhard Heinrich Theodor Heß, Irina Hoppe, Pia Maitzen, Constantin Friedrich Meininghaus, David Metzdorf, Johannes Schick, Lukas Vincent Tilgner)
 
 specific details are avaiable in the germany language under:
-[Entwurfsdokument_Gruppe9.pdf
-Nutzerhandbuch_HalloFrisch.pdf](https://github.com/LorexGitHub/HalloFrisch/blob/main/Entwurfsdokument_Gruppe9.pdf)
+[Entwurfsdokument_Gruppe9.pdf](https://github.com/LorexGitHub/HalloFrisch/blob/main/Entwurfsdokument_Gruppe9.pdf)
+[Nutzerhandbuch_HalloFrisch.pdf](https://github.com/LorexGitHub/HalloFrisch/blob/main/Nutzerhandbuch_HalloFrisch.pdf)
+
 
 
 # Demo
